@@ -8,7 +8,7 @@ import pytz
 # API 키 및 기본 URL 설정
 SERVICE_KEY = os.getenv('SERVICE_KEY')  # GitHub Secrets에 저장된 서비스 키를 환경 변수로 가져옴
 CROPPING_SERIAL_NO = 'YOUR_CROPPING_SERIAL_NO'  # 작기 번호를 입력하세요
-PAGE_NUM = '28'
+total_pages = '28'
 BASE_URL = f"http://www.smartfarmkorea.net/Agree_WS/webservices/CropseasonRestService/getCroppingSeasonEnvDataList/{SERVICE_KEY}/{CROPPING_SERIAL_NO}/{PAGE_NUM}"
 
 # 데이터 저장할 파일 설정
