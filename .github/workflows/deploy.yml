@@ -20,6 +20,8 @@ jobs:
         env:
           DEPLOY_KEY: ${{ secrets.DEPLOY_SSH_KEY }}
         run: |
+          echo "Setting up SSH"
+          echo "DEPLOY_KEY: $DEPLOY_KEY"  # DEPLOY_KEY가 잘 로드됐는지 확인
           mkdir -p $HOME/.ssh
           echo "$DEPLOY_KEY" > $HOME/.ssh/id_rsa
           chmod 600 $HOME/.ssh/id_rsa
