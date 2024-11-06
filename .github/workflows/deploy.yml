@@ -20,14 +20,20 @@ jobs:
         env:
           DEPLOY_KEY: ${{ secrets.DEPLOY_SSH_KEY }}
         run: |
-          echo "Setting up SSH"
-          echo "DEPLOY_KEY: $DEPLOY_KEY"  # DEPLOY_KEY가 잘 로드됐는지 확인
           mkdir -p $HOME/.ssh
           echo "$DEPLOY_KEY" > $HOME/.ssh/id_rsa
           chmod 600 $HOME/.ssh/id_rsa
           eval "$(ssh-agent -s)"
           ssh-add $HOME/.ssh/id_rsa
           ssh-keyscan -H ${{ secrets.DEPLOY_SERVER_IP }} >> $HOME/.ssh/known_hosts
+
+      - name: Test SSH connection
+        env:
+          SERVER_IP: ${{ secrets.DEPLOY_SERVER_IP }}
+          SERVER_USER: ${{ secrets.DEPLOY_USER }}
+        run: |
+          ssh -o StrictHostKeyChecking=no $SERVER_USER@$SERVER_IP "echo Connection successful!"
+
 
       - name: Deploy to Server
         env:
