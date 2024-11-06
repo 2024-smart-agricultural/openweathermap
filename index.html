@@ -22,57 +22,53 @@
 </head>
 <body>
     <h1>Weather Data for Major Cities in South Korea</h1>
-    <div id="weather"></div>
+    
+    <!-- Weather Data 박스 -->
+    <div class="weather-box" onclick="fetchWeatherData()">Weather Data</div>
+    <div class="weather-data" id="weather"></div>
 
     <script>
-        fetch('data/weather_data.json')
-            .then(response => response.json())
-            .then(data => {
-                const weatherDiv = document.getElementById('weather');
-                let htmlContent = '';
+        function fetchWeatherData() {
+            fetch('data/weather_data.json')
+                .then(response => response.json())
+                .then(data => {
+                    const weatherDiv = document.getElementById('weather');
+                    let htmlContent = '';
 
-                for (const city in data) {
-                    // 각 도시를 클릭 가능한 박스로 추가
-                    htmlContent += `<div class="weather-box" onclick="toggleWeatherData('${city}')">${city}</div>`;
-                    // 해당 도시의 데이터를 표시할 div 추가
-                    htmlContent += `<div class="weather-data" id="${city}-data"></div>`;
-                }
+                    for (const city in data) {
+                        htmlContent += `<h2>${city}</h2>`;
+                        htmlContent += '<table border="1">';
+                        htmlContent += `
+                            <tr>
+                                <th>Timestamp</th>
+                                <th>Temperature (°C)</th>
+                                <th>Feels Like (°C)</th>
+                                <th>Weather</th>
+                                <th>Humidity (%)</th>
+                                <th>Pressure (hPa)</th>
+                                <th>Wind Speed (m/s)</th>
+                            </tr>`;
 
-                weatherDiv.innerHTML = htmlContent;
+                        data[city].forEach(record => {
+                            htmlContent += `
+                            <tr>
+                                <td>${record.timestamp}</td>
+                                <td>${record.data.main.temp}</td>
+                                <td>${record.data.main.feels_like}</td>
+                                <td>${record.data.weather[0].description}</td>
+                                <td>${record.data.main.humidity}</td>
+                                <td>${record.data.main.pressure}</td>
+                                <td>${record.data.wind.speed}</td>
+                            </tr>`;
+                        });
 
-                // 각 도시의 날씨 데이터를 채우기
-                for (const city in data) {
-                    const records = data[city];
-                    const weatherDataDiv = document.getElementById(`${city}-data`);
-                    let tableContent = '<table border="1"><tr><th>Timestamp</th><th>Temperature (°C)</th><th>Feels Like (°C)</th><th>Weather</th><th>Humidity (%)</th><th>Pressure (hPa)</th><th>Wind Speed (m/s)</th></tr>';
+                        htmlContent += '</table>';
+                    }
 
-                    records.forEach(record => {
-                        tableContent += `
-                        <tr>
-                            <td>${record.timestamp}</td>
-                            <td>${record.data.main.temp}</td>
-                            <td>${record.data.main.feels_like}</td>
-                            <td>${record.data.weather[0].description}</td>
-                            <td>${record.data.main.humidity}</td>
-                            <td>${record.data.main.pressure}</td>
-                            <td>${record.data.wind.speed}</td>
-                        </tr>`;
-                    });
-
-                    tableContent += '</table>';
-                    weatherDataDiv.innerHTML = tableContent; // 해당 div에 데이터 삽입
-                }
-            })
-            .catch(error => console.error('Error fetching weather data:', error));
-
-        // 날씨 데이터 토글 함수
-        function toggleWeatherData(city) {
-            const weatherDataDiv = document.getElementById(`${city}-data`);
-            if (weatherDataDiv.style.display === "none" || weatherDataDiv.style.display === "") {
-                weatherDataDiv.style.display = "block"; // 데이터 표시
-            } else {
-                weatherDataDiv.style.display = "none"; // 데이터 숨김
-            }
+                    weatherDiv.innerHTML = htmlContent;
+                    weatherDiv.style.display = 'block'; // 데이터 표시
+                })
+                .catch(error => console.error('Error fetching weather data:', error));
         }
     </script>
 </body>
