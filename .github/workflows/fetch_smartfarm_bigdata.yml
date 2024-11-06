@@ -26,7 +26,7 @@ jobs:
         env:
           OWM_API_KEY: ${{ secrets.BIGDATA_API_KEY }}
         run: |
-          python samartfarm_bigdata.py
+          python fetch_samartfarm_bigdata.py
 
       - name: Commit and push weather data
         env:
