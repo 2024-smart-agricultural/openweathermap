@@ -1,0 +1,13 @@
+{
+    "timestamp": "2024-11-06 16:43:49",
+    "data": [
+        {
+            "statusCode": "30",
+            "statusMessage": "SERVICE_KEY_IS_NOT_REGISTERED_ERROR",
+            "userId": null,
+            "facilityId": null,
+            "addressName": null,
+            "itemCode": null
+        }
+    ]
+}
