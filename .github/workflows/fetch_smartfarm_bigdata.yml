@@ -1,0 +1,39 @@
+name: Fetch Smartfarm Big Data
+
+on:
+  schedule:
+    - cron: '0 0-23 * * *'  # 매 시간 정각마다 실행 (사용량에 따라 조정 가능)
+
+jobs:
+  fetch_weather:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v3
+        with:
+          python-version: '3.8'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install requests
+
+      - name: Fetch Smartfarm Big Data
+        env:
+          OWM_API_KEY: ${{ secrets.BIGDATA_API_KEY }}
+        run: |
+          python samartfarm_bigdata.py
+
+      - name: Commit and push weather data
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          git config --global user.name "muneo"
+          git config --global user.email "muneo4195@naver.com"
+          git add data/smartfarm_bigdata.json
+          git commit -m "Update smartfarm_bigdata"
+          git push
