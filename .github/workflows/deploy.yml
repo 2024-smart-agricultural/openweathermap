@@ -28,9 +28,10 @@ jobs:
           SERVER_USER: ${{ secrets.DEPLOY_USER }}
         run: |
           ssh $SERVER_USER@$SERVER_IP << 'EOF'
-            cd /path/to/your/django/project  # Django 프로젝트 디렉토리로 이동
+            cd C:/Users/muneo/smartfarm_monitoring  # Django 프로젝트 디렉토리로 이동
+            source /opt/conda/etc/profile.d/conda.sh  # Conda 환경 활성화를 위한 스크립트 로드
+            conda activate yolo  # Conda 가상환경 활성화
             git pull origin main  # 최신 변경사항 가져오기
-            source /path/to/your/venv/bin/activate  # 가상환경 활성화
             pip install -r requirements.txt  # 필요시 패키지 업데이트
             python manage.py migrate  # 데이터베이스 마이그레이션
             python manage.py collectstatic --noinput  # 정적 파일 수집
