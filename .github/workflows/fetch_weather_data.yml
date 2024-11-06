@@ -22,9 +22,6 @@ jobs:
           python -m pip install --upgrade pip
           pip install requests
 
-      - name: Set up SSH directory
-        run: mkdir -p /home/runner/.ssh
-
       - name: Fetch Weather Data
         env:
           OWM_API_KEY: ${{ secrets.OWM_API_KEY }}
@@ -39,4 +36,4 @@ jobs:
           git config --global user.email "muneo4195@naver.com"
           git add data/weather_data.json
           git commit -m "Update weather data"
-          git push "https://${GITHUB_TOKEN}@github.com/${{ github.repository }}.git" HEAD:main
+          git push
