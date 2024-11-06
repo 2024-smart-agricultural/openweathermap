@@ -12,7 +12,13 @@ base_url = "http://api.openweathermap.org/data/2.5/weather"
 
 # 데이터 저장할 파일 설정
 output_file = "data/weather_data.json"
-weather_data = {}
+
+# 기존 데이터 읽어오기 (파일이 있는 경우)
+if os.path.exists(output_file):
+    with open(output_file, "r") as f:
+        weather_data = json.load(f)
+else:
+    weather_data = {}
 
 # 각 도시의 날씨 데이터를 가져와서 저장
 for city in cities:
@@ -23,7 +29,12 @@ for city in cities:
     }
     response = requests.get(base_url, params=params)
     if response.status_code == 200:
-        weather_data[city] = response.json()
+        city_data = response.json()
+        # 타임스탬프 추가하여 중복 방지 (날짜/시간별로 저장)
+        timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        if city not in weather_data:
+            weather_data[city] = []
+        weather_data[city].append({"timestamp": timestamp, "data": city_data})
     else:
         print(f"Failed to get data for {city}: {response.status_code}")
 
