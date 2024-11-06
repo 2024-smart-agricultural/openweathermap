@@ -16,16 +16,16 @@ jobs:
       - name: Debug Environment
         run: env
 
-
-      - name: Set up SSH agent and add private key
+      - name: Set up SSH
         env:
           DEPLOY_KEY: ${{ secrets.DEPLOY_SSH_KEY }}
         run: |
-          echo "$DEPLOY_KEY" > id_rsa
-          chmod 600 id_rsa
+          mkdir -p $HOME/.ssh
+          echo "$DEPLOY_KEY" > $HOME/.ssh/id_rsa
+          chmod 600 $HOME/.ssh/id_rsa
           eval "$(ssh-agent -s)"
-          ssh-add id_rsa
-          ssh-keyscan -H ${{ secrets.DEPLOY_SERVER_IP }} >> ~/.ssh/known_hosts
+          ssh-add $HOME/.ssh/id_rsa
+          ssh-keyscan -H ${{ secrets.DEPLOY_SERVER_IP }} >> $HOME/.ssh/known_hosts
 
       - name: Deploy to Server
         env:
