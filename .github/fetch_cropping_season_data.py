@@ -3,6 +3,7 @@ import os
 import requests
 import json
 from datetime import datetime
+import pytz
 
 # API 키 및 기본 URL 설정
 SERVICE_KEY = os.getenv('SERVICE_KEY')  # GitHub Secrets에 저장된 서비스 키를 환경 변수로 가져옴
@@ -20,7 +21,11 @@ def fetch_cropping_season_data():
 
         # 응답 데이터 처리
         data = response.json()  # JSON 형식으로 응답 데이터 파싱
-        timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")  # 타임스탬프 추가
+        
+        # 현재 한국 시간으로 타임스탬프 생성
+        tz_kst = pytz.timezone('Asia/Seoul')  # 한국 표준시 설정
+        current_time = datetime.now(tz_kst)  # 현재 시간 가져오기
+        timestamp = current_time.strftime("%Y-%m-%d %H:%M:%S")  # KST 기준으로 포맷
 
         # JSON 파일로 저장
         with open(output_file, 'w') as f:
