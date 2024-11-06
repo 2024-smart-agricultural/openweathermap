@@ -1,0 +1,39 @@
+name: Deploy Django App
+
+on:
+  push:
+    branches:
+      - main  # main 브랜치에 새로운 커밋이 푸시될 때마다 실행
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out the repository
+        uses: actions/checkout@v3
+
+      - name: Set up SSH
+        env:
+          DEPLOY_KEY: ${{ secrets.DEPLOY_SSH_KEY }}
+        run: |
+          mkdir -p ~/.ssh
+          echo "$DEPLOY_KEY" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          ssh-keyscan -H ${{ secrets.DEPLOY_SERVER_IP }} >> ~/.ssh/known_hosts
+
+      - name: Deploy to Server
+        env:
+          SERVER_IP: ${{ secrets.DEPLOY_SERVER_IP }}
+          SERVER_USER: ${{ secrets.DEPLOY_USER }}
+        run: |
+          ssh $SERVER_USER@$SERVER_IP << 'EOF'
+            cd /path/to/your/django/project  # Django 프로젝트 디렉토리로 이동
+            git pull origin main  # 최신 변경사항 가져오기
+            source /path/to/your/venv/bin/activate  # 가상환경 활성화
+            pip install -r requirements.txt  # 필요시 패키지 업데이트
+            python manage.py migrate  # 데이터베이스 마이그레이션
+            python manage.py collectstatic --noinput  # 정적 파일 수집
+            sudo systemctl restart gunicorn  # Gunicorn이나 WSGI 서버 재시작
+            sudo systemctl restart nginx  # 필요시 Nginx 재시작
+          EOF
