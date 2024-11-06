@@ -13,17 +13,17 @@ jobs:
       - name: Check out the repository
         uses: actions/checkout@v3
 
-      - name: Set up SSH
-        env:
-          DEPLOY_KEY: ${{ secrets.DEPLOY_SSH_KEY }}
-        run: |
-          mkdir -p ~/.ssh
-          echo "$DEPLOY_KEY" > ~/.ssh/id_rsa
-          chmod 600 ~/.ssh/id_rsa
-          ssh-keyscan -H ${{ secrets.DEPLOY_SERVER_IP }} >> ~/.ssh/known_hosts
+      - name: Debug Environment
+        run: env
 
-      - name: Set up SSH directory
-        run: mkdir -p ~/.ssh || true
+
+      - name: Set up SSH directory and key
+        run: |
+          mkdir -p $HOME/.ssh
+          echo "${{ secrets.DEPLOY_SSH_KEY }}" > $HOME/.ssh/id_rsa
+          chmod 600 $HOME/.ssh/id_rsa
+          ssh-keyscan -H ${{ secrets.DEPLOY_SERVER_IP }} >> $HOME/.ssh/known_hosts
+        shell: bash
 
       - name: Deploy to Server
         env:
