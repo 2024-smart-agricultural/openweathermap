@@ -7,7 +7,7 @@ import pytz
 
 # API 키 및 기본 URL 설정
 SERVICE_KEY = os.getenv('SERVICE_KEY')  # GitHub Secrets에 저장된 서비스 키를 환경 변수로 가져옴
-YEAR = '2024'  # 데이터를 가져올 연도 설정
+YEAR = '2021'  # 데이터를 가져올 연도 설정
 BASE_URL = f"http://www.smartfarmkorea.net/Agree_WS/webservices/CropseasonRestService/getCroppingSeasonDataList/{SERVICE_KEY}/{YEAR}"
 
 # 데이터 저장할 파일 설정
