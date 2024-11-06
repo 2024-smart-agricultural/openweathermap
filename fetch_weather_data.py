@@ -2,6 +2,7 @@ import os
 import requests
 import json
 from datetime import datetime
+import pytz
 
 # 대한민국 주요 도시 목록 (예시)
 cities = ["Seoul", "Busan", "Incheon", "Daegu", "Daejeon", "Jeonju", "Gwangju", "Suwon"]
@@ -20,6 +21,11 @@ if os.path.exists(output_file):
 else:
     weather_data = {}
 
+# 현재 한국 시간으로 타임스탬프 생성
+tz_kst = pytz.timezone('Asia/Seoul')  # 한국 표준시 설정
+current_time = datetime.now(tz_kst)  # 현재 시간 가져오기
+timestamp = current_time.strftime("%Y-%m-%d %H:%M:%S")  # KST 기준으로 포맷
+
 # 각 도시의 날씨 데이터를 가져와서 저장
 for city in cities:
     params = {
@@ -30,8 +36,6 @@ for city in cities:
     response = requests.get(base_url, params=params)
     if response.status_code == 200:
         city_data = response.json()
-        # 타임스탬프 추가하여 중복 방지 (날짜/시간별로 저장)
-        timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         if city not in weather_data:
             weather_data[city] = []
         weather_data[city].append({"timestamp": timestamp, "data": city_data})
