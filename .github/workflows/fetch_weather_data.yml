@@ -27,3 +27,11 @@ jobs:
           OWM_API_KEY: ${{ secrets.OWM_API_KEY }}
         run: |
           python fetch_weather_data.py
+
+      - name: Commit and push weather data
+        run: |
+          git config --global user.name "muneo"
+          git config --global user.email "muneo4195@naver.com"
+          git add weather_data.json
+          git commit -m "Update weather data"
+          git push
