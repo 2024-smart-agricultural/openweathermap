@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather Data</title>
+</head>
+<body>
+    <h1>Weather Data for Major Cities in South Korea</h1>
+    <div id="weather"></div>
+
+    <script>
+        fetch('data/weather_data.json')
+            .then(response => response.json())
+            .then(data => {
+                const weatherDiv = document.getElementById('weather');
+                let htmlContent = '';
+
+                for (const city in data) {
+                    htmlContent += `<h2>${city}</h2>`;
+                    htmlContent += '<table border="1">';
+                    htmlContent += `
+                        <tr>
+                            <th>Timestamp</th>
+                            <th>Temperature (°C)</th>
+                            <th>Feels Like (°C)</th>
+                            <th>Weather</th>
+                            <th>Humidity (%)</th>
+                            <th>Pressure (hPa)</th>
+                            <th>Wind Speed (m/s)</th>
+                        </tr>`;
+
+                    data[city].forEach(record => {
+                        htmlContent += `
+                        <tr>
+                            <td>${record.timestamp}</td>
+                            <td>${record.data.main.temp}</td>
+                            <td>${record.data.main.feels_like}</td>
+                            <td>${record.data.weather[0].description}</td>
+                            <td>${record.data.main.humidity}</td>
+                            <td>${record.data.main.pressure}</td>
+                            <td>${record.data.wind.speed}</td>
+                        </tr>`;
+                    });
+
+                    htmlContent += '</table>';
+                }
+
+                weatherDiv.innerHTML = htmlContent;
+            })
+            .catch(error => console.error('Error fetching weather data:', error));
+    </script>
+</body>
+</html>
