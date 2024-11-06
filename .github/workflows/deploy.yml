@@ -13,19 +13,16 @@ jobs:
       - name: Check out the repository
         uses: actions/checkout@v3
 
-      - name: Debug Environment
-        run: env
-
       - name: Set up SSH
         env:
           DEPLOY_KEY: ${{ secrets.DEPLOY_SSH_KEY }}
         run: |
-          mkdir -p $HOME/.ssh
-          echo "$DEPLOY_KEY" > $HOME/.ssh/id_rsa
-          chmod 600 $HOME/.ssh/id_rsa
-          eval "$(ssh-agent -s)"
-          ssh-add $HOME/.ssh/id_rsa
-          ssh-keyscan -H ${{ secrets.DEPLOY_SERVER_IP }} >> $HOME/.ssh/known_hosts
+          mkdir -p /home/runner/.ssh
+          echo "$DEPLOY_KEY" > /home/runner/.ssh/id_rsa
+          chmod 600 /home/runner/.ssh/id_rsa
+          eval "$(ssh-agent -s)"  # SSH 에이전트 시작
+          ssh-add /home/runner/.ssh/id_rsa  # 개인 키 추가
+          ssh-keyscan -H ${{ secrets.DEPLOY_SERVER_IP }} >> /home/runner/.ssh/known_hosts  # 서버 키 추가
 
       - name: Test SSH connection
         env:
