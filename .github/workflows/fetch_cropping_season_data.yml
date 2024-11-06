@@ -35,6 +35,6 @@ jobs:
         run: |
           git config --global user.name "muneo"
           git config --global user.email "muneo4195@naver.com"
-          git add data/weather_data.json
-          git commit -m "Update weather data"
+          git add data/cropping_season_data.json
+          git commit -m "Update cropping season data"
           git push
