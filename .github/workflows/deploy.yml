@@ -17,12 +17,13 @@ jobs:
         env:
           DEPLOY_KEY: ${{ secrets.DEPLOY_SSH_KEY }}
         run: |
-          mkdir -p /home/runner/.ssh
-          echo "$DEPLOY_KEY" > /home/runner/.ssh/id_rsa
-          chmod 600 /home/runner/.ssh/id_rsa
+          echo "Setting up SSH"
+          mkdir -p ~/.ssh
+          echo "$DEPLOY_KEY" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
           eval "$(ssh-agent -s)"  # SSH 에이전트 시작
-          ssh-add /home/runner/.ssh/id_rsa  # 개인 키 추가
-          ssh-keyscan -H ${{ secrets.DEPLOY_SERVER_IP }} >> /home/runner/.ssh/known_hosts  # 서버 키 추가
+          ssh-add ~/.ssh/id_rsa  # 개인 키 추가
+          ssh-keyscan -H ${{ secrets.DEPLOY_SERVER_IP }} >> ~/.ssh/known_hosts  # 서버 키 추가
 
       - name: Test SSH connection
         env:
