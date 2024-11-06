@@ -23,7 +23,7 @@ jobs:
           pip install requests
 
       - name: Create data directory
-        run: mkdir -p data
+        run: mkdir -p ${{ github.workspace }}/data
 
       - name: Fetch Weather Data
         env:
