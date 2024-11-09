@@ -17,11 +17,13 @@ def fetch_cropping_season_data(year):
     try:
         # URL에 서비스 키와 연도를 삽입하여 호출
         url = f"{BASE_URL}/{SERVICE_KEY}/{year}"
-        response = requests.get(url)
-        response.raise_for_status()  # 상태 코드가 정상적이지 않으면 예외 발생
 
-        # JSON 응답 데이터 파싱
+        response = requests.get(url)
+        response.raise_for_status()
         data = response.json()
+        
+        response = requests.get(url)
+        response.rais
 
         # 응답 형식 확인
         if isinstance(data, list) and data[0].get("statusCode") == "00":
@@ -30,8 +32,10 @@ def fetch_cropping_season_data(year):
             print(f"{year}년의 데이터가 예상 형식과 다릅니다.")
             return None
 
+    print("응답 데이터:", data)
     except requests.exceptions.RequestException as e:
         print(f"{year}년 데이터 요청 중 오류 발생: {e}")
+        print("응답 텍스트:", response.text)
         return None
         
 def main():
