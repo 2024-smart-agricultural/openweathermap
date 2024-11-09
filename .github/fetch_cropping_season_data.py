@@ -21,9 +21,6 @@ def fetch_cropping_season_data(year):
         response = requests.get(url)
         response.raise_for_status()
         data = response.json()
-        
-        response = requests.get(url)
-        response.rais
 
         # 응답 형식 확인
         if isinstance(data, list) and data[0].get("statusCode") == "00":
@@ -32,12 +29,10 @@ def fetch_cropping_season_data(year):
             print(f"{year}년의 데이터가 예상 형식과 다릅니다.")
             return None
 
-    print("응답 데이터:", data)
     except requests.exceptions.RequestException as e:
         print(f"{year}년 데이터 요청 중 오류 발생: {e}")
-        print("응답 텍스트:", response.text)
         return None
-        
+
 def main():
     all_data = {}
     tz_kst = pytz.timezone('Asia/Seoul')  # 한국 표준시 설정
@@ -55,6 +50,7 @@ def main():
 
     # 타임스탬프와 함께 JSON 파일로 저장
     if all_data:
+        os.makedirs(os.path.dirname(output_file), exist_ok=True)
         with open(output_file, 'w', encoding='utf-8') as f:
             json.dump({"timestamp": timestamp, "data": all_data}, f, indent=4, ensure_ascii=False)
         print(f"작기 정보 데이터를 성공적으로 저장했습니다. 타임스탬프: {timestamp}")
