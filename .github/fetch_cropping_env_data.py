@@ -8,40 +8,39 @@ import pytz
 # API 키 및 기본 URL 설정
 SERVICE_KEY = os.getenv('SERVICE_KEY')  # GitHub Secrets에 저장된 서비스 키를 환경 변수로 가져옴
 CROPPING_SERIAL_NO = 'YOUR_CROPPING_SERIAL_NO'  # 작기 번호를 입력하세요
-total_pages = '28'
-BASE_URL = f"http://www.smartfarmkorea.net/Agree_WS/webservices/CropseasonRestService/getCroppingSeasonEnvDataList/{SERVICE_KEY}/{CROPPING_SERIAL_NO}/{PAGE_NUM}"
+total_pages = 28  # Set total pages as integer
+BASE_URL_TEMPLATE = "http://www.smartfarmkorea.net/Agree_WS/webservices/CropseasonRestService/getCroppingSeasonEnvDataList/{service_key}/{cropping_serial_no}/{page_num}"
 
-# 데이터 저장할 파일 설정
+# Output file setup
 output_file = 'data/cropping_env_data.json'
-
 
 def fetch_all_cropping_env_data():
     all_data = []
-    for page_num in range(1, total_pages + 1):  # 1부터 total_pages까지 반복
-        BASE_URL = f"http://www.smartfarmkorea.net/Agree_WS/webservices/CropseasonRestService/getCroppingSeasonEnvDataList/{SERVICE_KEY}/{CROPPING_SERIAL_NO}/{page_num}"
+    for page_num in range(1, total_pages + 1):  # Loop from page 1 to total_pages
+        url = BASE_URL_TEMPLATE.format(service_key=SERVICE_KEY, cropping_serial_no=CROPPING_SERIAL_NO, page_num=page_num)
         
         try:
-            # API 호출
-            response = requests.get(BASE_URL)
-            response.raise_for_status()  # 요청이 성공하지 않으면 예외 발생
+            # API request
+            response = requests.get(url)
+            response.raise_for_status()  # Raise error for unsuccessful requests
 
-            # 응답 데이터 처리
-            data = response.json()  # JSON 형식으로 응답 데이터 파싱
-            all_data.extend(data)  # 모든 페이지의 데이터를 통합
+            # Process response data
+            data = response.json()  # Parse response as JSON
+            all_data.extend(data)  # Aggregate data across all pages
 
         except requests.exceptions.RequestException as e:
-            print(f"API 요청 중 오류 발생 (페이지 {page_num}): {e}")
+            print(f"Error during API request (Page {page_num}): {e}")
         
-    # 현재 한국 시간으로 타임스탬프 생성
-    tz_kst = pytz.timezone('Asia/Seoul')  # 한국 표준시 설정
-    current_time = datetime.now(tz_kst)  # 현재 시간 가져오기
-    timestamp = current_time.strftime("%Y-%m-%d %H:%M:%S")  # KST 기준으로 포맷
+    # Generate timestamp in Korean Standard Time
+    tz_kst = pytz.timezone('Asia/Seoul')  # Set timezone to KST
+    current_time = datetime.now(tz_kst)  # Get current time in KST
+    timestamp = current_time.strftime("%Y-%m-%d %H:%M:%S")  # Format timestamp
 
-    # JSON 파일로 저장
-    with open(output_file, 'w') as f:
-        json.dump({"timestamp": timestamp, "data": data}, f, indent=4)
+    # Save to JSON file
+    with open(output_file, 'w', encoding='utf-8') as f:
+        json.dump({"timestamp": timestamp, "data": all_data}, f, indent=4, ensure_ascii=False)
 
-    print(f"농가별 작기 환경 정보를 성공적으로 가져왔습니다. 타임스탬프: {timestamp}")
+    print(f"Successfully fetched cropping environment data. Timestamp: {timestamp}")
 
 if __name__ == "__main__":
     fetch_all_cropping_env_data()
