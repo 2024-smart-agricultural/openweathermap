@@ -6,7 +6,7 @@ from datetime import datetime
 import pytz
 
 # API 키 및 기본 URL 설정
-SERVICE_KEY = os.getenv('SERVICE_KEY')  # GitHub Secrets에 저장된 서비스 키를 환경 변수로 가져옴
+SERVICE_KEY = os.getenv('BIGDATA_API_KEY')  # GitHub Secrets에 저장된 서비스 키를 환경 변수로 가져옴
 CROPPING_SERIAL_NO = 'YOUR_CROPPING_SERIAL_NO'  # 작기 번호를 입력하세요
 total_pages = 28  # Set total pages as integer
 BASE_URL_TEMPLATE = "http://www.smartfarmkorea.net/Agree_WS/webservices/CropseasonRestService/getCroppingSeasonEnvDataList/{service_key}/{cropping_serial_no}/{page_num}"
