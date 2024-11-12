@@ -6587,6 +6587,53 @@
                 "name": "Seoul",
                 "cod": 200
             }
+        },
+        {
+            "timestamp": "2024-11-12 22:18:22",
+            "data": {
+                "coord": {
+                    "lon": 126.9778,
+                    "lat": 37.5683
+                },
+                "weather": [
+                    {
+                        "id": 800,
+                        "main": "Clear",
+                        "description": "clear sky",
+                        "icon": "01n"
+                    }
+                ],
+                "base": "stations",
+                "main": {
+                    "temp": 14.4,
+                    "feels_like": 12.78,
+                    "temp_min": 14.4,
+                    "temp_max": 14.4,
+                    "pressure": 1021,
+                    "humidity": 34,
+                    "sea_level": 1021,
+                    "grnd_level": 1011
+                },
+                "visibility": 10000,
+                "wind": {
+                    "speed": 0.92,
+                    "deg": 343,
+                    "gust": 1.21
+                },
+                "clouds": {
+                    "all": 5
+                },
+                "dt": 1731417451,
+                "sys": {
+                    "country": "KR",
+                    "sunrise": 1731362920,
+                    "sunset": 1731399837
+                },
+                "timezone": 32400,
+                "id": 1835848,
+                "name": "Seoul",
+                "cod": 200
+            }
         }
     ],
     "Busan": [
@@ -13176,6 +13223,53 @@
                     "all": 0
                 },
                 "dt": 1731413953,
+                "sys": {
+                    "country": "KR",
+                    "sunrise": 1731362135,
+                    "sunset": 1731399632
+                },
+                "timezone": 32400,
+                "id": 1838524,
+                "name": "Busan",
+                "cod": 200
+            }
+        },
+        {
+            "timestamp": "2024-11-12 22:18:22",
+            "data": {
+                "coord": {
+                    "lon": 129.0403,
+                    "lat": 35.1028
+                },
+                "weather": [
+                    {
+                        "id": 800,
+                        "main": "Clear",
+                        "description": "clear sky",
+                        "icon": "01n"
+                    }
+                ],
+                "base": "stations",
+                "main": {
+                    "temp": 16.63,
+                    "feels_like": 15.78,
+                    "temp_min": 16.63,
+                    "temp_max": 16.63,
+                    "pressure": 1020,
+                    "humidity": 55,
+                    "sea_level": 1020,
+                    "grnd_level": 1015
+                },
+                "visibility": 10000,
+                "wind": {
+                    "speed": 2.78,
+                    "deg": 10,
+                    "gust": 4.11
+                },
+                "clouds": {
+                    "all": 0
+                },
+                "dt": 1731417402,
                 "sys": {
                     "country": "KR",
                     "sunrise": 1731362135,
@@ -19860,6 +19954,54 @@
                 "name": "Incheon",
                 "cod": 200
             }
+        },
+        {
+            "timestamp": "2024-11-12 22:18:22",
+            "data": {
+                "coord": {
+                    "lon": 126.4161,
+                    "lat": 37.45
+                },
+                "weather": [
+                    {
+                        "id": 800,
+                        "main": "Clear",
+                        "description": "clear sky",
+                        "icon": "01n"
+                    }
+                ],
+                "base": "stations",
+                "main": {
+                    "temp": 11.93,
+                    "feels_like": 10.8,
+                    "temp_min": 11.93,
+                    "temp_max": 11.93,
+                    "pressure": 1022,
+                    "humidity": 62,
+                    "sea_level": 1022,
+                    "grnd_level": 1021
+                },
+                "visibility": 10000,
+                "wind": {
+                    "speed": 1.54,
+                    "deg": 10
+                },
+                "clouds": {
+                    "all": 0
+                },
+                "dt": 1731417502,
+                "sys": {
+                    "type": 1,
+                    "id": 8093,
+                    "country": "KR",
+                    "sunrise": 1731363041,
+                    "sunset": 1731399986
+                },
+                "timezone": 32400,
+                "id": 1843561,
+                "name": "Incheon",
+                "cod": 200
+            }
         }
     ],
     "Daegu": [
@@ -26446,6 +26588,53 @@
                 "name": "Daegu",
                 "cod": 200
             }
+        },
+        {
+            "timestamp": "2024-11-12 22:18:22",
+            "data": {
+                "coord": {
+                    "lon": 128.55,
+                    "lat": 35.8
+                },
+                "weather": [
+                    {
+                        "id": 800,
+                        "main": "Clear",
+                        "description": "clear sky",
+                        "icon": "01n"
+                    }
+                ],
+                "base": "stations",
+                "main": {
+                    "temp": 12.5,
+                    "feels_like": 11.29,
+                    "temp_min": 12.5,
+                    "temp_max": 12.5,
+                    "pressure": 1021,
+                    "humidity": 57,
+                    "sea_level": 1021,
+                    "grnd_level": 998
+                },
+                "visibility": 10000,
+                "wind": {
+                    "speed": 1.45,
+                    "deg": 27,
+                    "gust": 1.35
+                },
+                "clouds": {
+                    "all": 0
+                },
+                "dt": 1731417502,
+                "sys": {
+                    "country": "KR",
+                    "sunrise": 1731362333,
+                    "sunset": 1731399670
+                },
+                "timezone": 32400,
+                "id": 1835327,
+                "name": "Daegu",
+                "cod": 200
+            }
         }
     ],
     "Daejeon": [
@@ -32974,6 +33163,53 @@
                     "all": 0
                 },
                 "dt": 1731413953,
+                "sys": {
+                    "country": "KR",
+                    "sunrise": 1731362667,
+                    "sunset": 1731399879
+                },
+                "timezone": 32400,
+                "id": 1835224,
+                "name": "Daejeon",
+                "cod": 200
+            }
+        },
+        {
+            "timestamp": "2024-11-12 22:18:22",
+            "data": {
+                "coord": {
+                    "lon": 127.4167,
+                    "lat": 36.3333
+                },
+                "weather": [
+                    {
+                        "id": 800,
+                        "main": "Clear",
+                        "description": "clear sky",
+                        "icon": "01n"
+                    }
+                ],
+                "base": "stations",
+                "main": {
+                    "temp": 11.02,
+                    "feels_like": 10.08,
+                    "temp_min": 11.02,
+                    "temp_max": 11.02,
+                    "pressure": 1022,
+                    "humidity": 73,
+                    "sea_level": 1022,
+                    "grnd_level": 997
+                },
+                "visibility": 10000,
+                "wind": {
+                    "speed": 0.94,
+                    "deg": 57,
+                    "gust": 0.91
+                },
+                "clouds": {
+                    "all": 0
+                },
+                "dt": 1731417502,
                 "sys": {
                     "country": "KR",
                     "sunrise": 1731362667,
@@ -39528,6 +39764,53 @@
                 "name": "Jeonju",
                 "cod": 200
             }
+        },
+        {
+            "timestamp": "2024-11-12 22:18:22",
+            "data": {
+                "coord": {
+                    "lon": 127.1489,
+                    "lat": 35.8219
+                },
+                "weather": [
+                    {
+                        "id": 800,
+                        "main": "Clear",
+                        "description": "clear sky",
+                        "icon": "01n"
+                    }
+                ],
+                "base": "stations",
+                "main": {
+                    "temp": 11,
+                    "feels_like": 10.11,
+                    "temp_min": 11,
+                    "temp_max": 11,
+                    "pressure": 1022,
+                    "humidity": 75,
+                    "sea_level": 1022,
+                    "grnd_level": 999
+                },
+                "visibility": 10000,
+                "wind": {
+                    "speed": 1.05,
+                    "deg": 57,
+                    "gust": 1.01
+                },
+                "clouds": {
+                    "all": 0
+                },
+                "dt": 1731417502,
+                "sys": {
+                    "country": "KR",
+                    "sunrise": 1731362672,
+                    "sunset": 1731400003
+                },
+                "timezone": 32400,
+                "id": 1845457,
+                "name": "Jeonju",
+                "cod": 200
+            }
         }
     ],
     "Gwangju": [
@@ -46071,6 +46354,53 @@
                     "all": 0
                 },
                 "dt": 1731413953,
+                "sys": {
+                    "country": "KR",
+                    "sunrise": 1731362651,
+                    "sunset": 1731400136
+                },
+                "timezone": 32400,
+                "id": 1841811,
+                "name": "Gwangju",
+                "cod": 200
+            }
+        },
+        {
+            "timestamp": "2024-11-12 22:18:22",
+            "data": {
+                "coord": {
+                    "lon": 126.9156,
+                    "lat": 35.1547
+                },
+                "weather": [
+                    {
+                        "id": 800,
+                        "main": "Clear",
+                        "description": "clear sky",
+                        "icon": "01n"
+                    }
+                ],
+                "base": "stations",
+                "main": {
+                    "temp": 10.99,
+                    "feels_like": 10.26,
+                    "temp_min": 10.99,
+                    "temp_max": 10.99,
+                    "pressure": 1021,
+                    "humidity": 81,
+                    "sea_level": 1021,
+                    "grnd_level": 1006
+                },
+                "visibility": 10000,
+                "wind": {
+                    "speed": 1.58,
+                    "deg": 23,
+                    "gust": 1.64
+                },
+                "clouds": {
+                    "all": 0
+                },
+                "dt": 1731417502,
                 "sys": {
                     "country": "KR",
                     "sunrise": 1731362651,
@@ -52749,6 +53079,54 @@
                     "all": 0
                 },
                 "dt": 1731413953,
+                "sys": {
+                    "type": 1,
+                    "id": 5509,
+                    "country": "KR",
+                    "sunrise": 1731362879,
+                    "sunset": 1731399863
+                },
+                "timezone": 32400,
+                "id": 1835553,
+                "name": "Suwon-si",
+                "cod": 200
+            }
+        },
+        {
+            "timestamp": "2024-11-12 22:18:22",
+            "data": {
+                "coord": {
+                    "lon": 127.0089,
+                    "lat": 37.2911
+                },
+                "weather": [
+                    {
+                        "id": 800,
+                        "main": "Clear",
+                        "description": "clear sky",
+                        "icon": "01n"
+                    }
+                ],
+                "base": "stations",
+                "main": {
+                    "temp": 9.64,
+                    "feels_like": 9.64,
+                    "temp_min": 8.69,
+                    "temp_max": 9.64,
+                    "pressure": 1021,
+                    "humidity": 81,
+                    "sea_level": 1021,
+                    "grnd_level": 1012
+                },
+                "visibility": 10000,
+                "wind": {
+                    "speed": 0,
+                    "deg": 0
+                },
+                "clouds": {
+                    "all": 0
+                },
+                "dt": 1731417275,
                 "sys": {
                     "type": 1,
                     "id": 5509,
