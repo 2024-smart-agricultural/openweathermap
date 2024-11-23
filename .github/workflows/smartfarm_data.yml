@@ -1,0 +1,25 @@
+name: Fetch Smart Farm Data
+
+on:
+  schedule:
+    - cron: '0 */2 * * *'  # 매 2시간마다 실행
+
+jobs:
+  fetch_data:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.x
+
+      - name: Install dependencies
+        run: |
+          pip install requests
+
+      - name: Fetch data from Smart Farm API
+        run: |
+          python .github/scripts/fetch_smartfarm_data.py
