@@ -35,7 +35,21 @@ def save_data(data):
             "센서값": item.get("senVal"),
             "항목코드": item.get("fatrCode"),
             "품목코드": item.get("itemCode"),
-            "분류코드": item.get("sectCode")
+            "분류코드": item.get("sectCode"),
+            "측정 장소": item.get("locCode"),
+            "측정 시설": item.get("facCode"),
+            "데이터 단위": item.get("unit"),
+            "측정 시간": item.get("measTime"),
+            "데이터 신뢰도": item.get("reliability"),
+            "제어 정보": item.get("controlInfo"),
+            "센서 ID": item.get("sensorId"),
+            "데이터 수집 주기": item.get("collectionFreq"),
+            "날씨 정보": item.get("weatherInfo"),
+            "작물 상태": item.get("cropStatus"),
+            "작물 위치": item.get("cropLocation"),
+            "제어 설정": item.get("controlSettings"),
+            "이상 데이터 표시": item.get("anomalyIndicator"),
+            "온실 구역 정보": item.get("greenhouseSection")
         }
         processed_data.append(entry)
     
