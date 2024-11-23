@@ -6,26 +6,53 @@ from datetime import datetime
 API_URL = "http://www.smartfarmkorea.net/Agree_WS/webservices/InnovationValleyRestService/getEnvDataList"
 SERVICE_KEY = os.getenv("SERVICE_KEY")  # GitHub Secrets에 저장된 API 키 사용
 
-# 필수 파라미터
-FACILITY_ID = "C010901_C01090101_001"  # 예시 시설 ID (수정 가능)
-USER_ID = "inv_01"  # 예시 농가 ID (수정 가능)
+# 필수 파라미터 - 모든 시설 ID 목록
+FACILITY_IDS = [
+    "C010901_C01090101",  # 상주 창업보육시설
+    "C010901_C01090102",  # 상주 임대형스마트팜
+    "C010901_C01090103",  # 상주 실증단지
+    "C010901_C01090104",  # 상주 경영형
+    "C010902_C01090201",  # 김제 창업보육시설
+    "C010902_C01090202",  # 김제 임대형스마트팜
+    "C010902_C01090203",  # 김제 실증단지
+    "C010902_C01090204",  # 김제 경영형
+    "C010903_C01090301",  # 고흥 창업보육시설
+    "C010903_C01090302",  # 고흥 임대형스마트팜
+    "C010903_C01090303",  # 고흥 실증단지
+    "C010904_C01090401",  # 밀양 창업보육시설
+    "C010904_C01090402",  # 밀양 임대형스마트팜
+    "C010904_C01090403"   # 밀양 실증단지
+]
+
+START_YEAR = 2021
 MEASURE_DATE = datetime.now().strftime("%Y%m%d")  # 현재 날짜
 
 def fetch_data():
-    params = {
-        'serviceKey': SERVICE_KEY,
-        'fcltyId': FACILITY_ID,
-        'userId': USER_ID,
-        'measDate': MEASURE_DATE
-    }
-    response = requests.get(API_URL, params=params)
-    if response.status_code == 200:
-        data = response.json()
-        save_data(data)
-    else:
-        print(f"Error: {response.status_code}, {response.text}")
+    all_processed_data = []
+    for FACILITY_ID in FACILITY_IDS:
+        for year in range(START_YEAR, datetime.now().year + 1):
+            for month in range(1, 13):
+                for day in range(1, 32):
+                    try:
+                        MEASURE_DATE = f"{year}{month:02d}{day:02d}"
+                    except ValueError:
+                        continue
+                    params = {
+            'serviceKey': SERVICE_KEY,
+            'fcltyId': FACILITY_ID,
+            'userId': USER_ID,
+            'measDate': MEASURE_DATE
+        }
+        response = requests.get(API_URL, params=params)
+        if response.status_code == 200:
+            data = response.json()
+            all_processed_data.extend(process_data(data))
+        else:
+            print(f"Error fetching data for facility {FACILITY_ID}: {response.status_code}, {response.text}")
+    save_data(all_processed_data)
+            
 
-def save_data(data):
+def process_data(data):
     # 데이터를 가공하여 필요한 정보만 추출
     processed_data = []
     for item in data.get("envDataList", []):
@@ -52,10 +79,12 @@ def save_data(data):
             "온실 구역 정보": item.get("greenhouseSection")
         }
         processed_data.append(entry)
-    
+    return processed_data
+
+def save_data(data):
     # JSON 파일로 저장
-    with open("data/smartfarm_data.json", "w", encoding="utf-8") as f:
-        json.dump(processed_data, f, ensure_ascii=False, indent=4)
+    with open("smartfarm_data.json", "w", encoding="utf-8") as f:
+        json.dump(data, f, ensure_ascii=False, indent=4)
 
     print("Data saved successfully!")
 
