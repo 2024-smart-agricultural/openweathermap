@@ -40,7 +40,6 @@ def fetch_data():
                     params = {
             'serviceKey': SERVICE_KEY,
             'fcltyId': FACILITY_ID,
-            'userId': USER_ID,
             'measDate': MEASURE_DATE
         }
         response = requests.get(API_URL, params=params)
