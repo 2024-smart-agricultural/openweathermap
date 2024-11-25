@@ -4,7 +4,7 @@ import os
 from datetime import datetime
 
 API_URL = "http://www.smartfarmkorea.net/Agree_WS/webservices/InnovationValleyRestService/getEnvDataList"
-SERVICE_KEY = os.getenv("SERVICE_KEY")  # GitHub Secrets에 저장된 API 키 사용
+SERVICE_KEY = os.getenv("BIGDATA_API_KEY")  # GitHub Secrets에 저장된 API 키 사용
 
 # 필수 파라미터 - 모든 시설 ID 목록
 FACILITY_IDS = [
