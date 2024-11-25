@@ -2,6 +2,7 @@ import requests
 import json
 import os
 from datetime import datetime
+from concurrent.futures import ThreadPoolExecutor, as_completed
 
 API_URL = "http://www.smartfarmkorea.net/Agree_WS/webservices/InnovationValleyRestService/getEnvDataList"
 SERVICE_KEY = os.getenv("BIGDATA_API_KEY")  # GitHub Secrets에 저장된 API 키 사용
@@ -29,28 +30,41 @@ MEASURE_DATE = datetime.now().strftime("%Y%m%d")  # 현재 날짜
 
 def fetch_data():
     all_processed_data = []
-    for FACILITY_ID in FACILITY_IDS:
-        for year in range(START_YEAR, datetime.now().year + 1):
-            for month in range(1, 13):
-                for day in range(1, 32):
-                    try:
-                        MEASURE_DATE = f"{year}{month:02d}{day:02d}"
-                    except ValueError:
-                        continue
-                    params = {
-            'serviceKey': SERVICE_KEY,
-            'fcltyId': FACILITY_ID,
-            'measDate': MEASURE_DATE
+    with ThreadPoolExecutor(max_workers=5) as executor:
+        future_to_facility = {
+            executor.submit(fetch_facility_data, facility_id): facility_id for facility_id in FACILITY_IDS
         }
-        response = requests.get(API_URL, params=params)
-        if response.status_code == 200:
-            data = response.json()
-            all_processed_data.extend(process_data(data))
-        else:
-            print(f"Error fetching data for facility {FACILITY_ID}: {response.status_code}, {response.text}")
+        for future in as_completed(future_to_facility):
+            try:
+                data = future.result()
+                all_processed_data.extend(data)
+            except Exception as exc:
+                facility_id = future_to_facility[future]
+                print(f"Facility {facility_id} generated an exception: {exc}")
     save_data(all_processed_data)
-            
 
+def fetch_facility_data(facility_id):
+    processed_data = []
+    for year in range(START_YEAR, datetime.now().year + 1):
+        for month in range(1, 13):
+            for day in range(1, 32):
+                try:
+                    MEASURE_DATE = f"{year}{month:02d}{day:02d}"
+                except ValueError:
+                    continue
+                params = {
+                    'serviceKey': SERVICE_KEY,
+                    'fcltyId': facility_id,
+                    'measDate': MEASURE_DATE
+                }
+                response = requests.get(API_URL, params=params)
+                if response.status_code == 200:
+                    data = response.json()
+                    processed_data.extend(process_data(data))
+                else:
+                    print(f"Error fetching data for facility {facility_id} on {MEASURE_DATE}: {response.status_code}, {response.text}")
+    return processed_data
+    
 def process_data(data):
     # 데이터를 가공하여 필요한 정보만 추출
     processed_data = []
